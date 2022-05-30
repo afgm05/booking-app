@@ -1,26 +1,45 @@
-import CourseCard from '../components/CourseCard';
-import coursesData from '../mockData/coursesData';
+import UserView from '../components/UserView';
+import AdminView from '../components/AdminView';
+import { useContext, useEffect, useState } from 'react';
+import UserContext from '../UserContext';
+
 
 
 
 export default function CoursePage() {
-	//Check if the mock data was captured
-	console.log(coursesData);
-	//PHP laravel
-	console.log(coursesData[0]);
 
-	//For us to be bale to display all the courses from the data file we are going to use the map() method
-	const courses = coursesData.map(individualCourse => {
-		return(
-			<CourseCard key={individualCourse.id} courseProp={individualCourse}/>
-			)
-		//add key to property to keep track the number of courses and to avoid duplication
-	})
+	const [ allCourses, setAllCourses ] = useState([])
+
+	const fetchData = () => {
+		fetch('http://localhost:4000/courses/all')
+		.then(res => res.json())
+		.then(data => {
+			console.log(data)
+			//storing all the data to our useState allCourses
+			setAllCourses(data)
+		})
+	}
+
+	useEffect(() => {
+		fetchData()
+	}, [])
+
+	
+	const { user } = useContext(UserContext);
 
 	return(
 		<>
 			<h1>Courses</h1>
-			{courses}
+
+			{(user.isAdmin === true) ?
+
+				<AdminView coursesData={allCourses} fetchData={fetchData} />
+
+				:
+
+				<UserView coursesData={allCourses} />
+			}
+		
 		</>
 
 

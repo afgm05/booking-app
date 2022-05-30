@@ -1,8 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import Swal from 'sweetalert2';
+import UserContext from '../UserContext';
+import { Navigate } from 'react-router-dom';
 
 export default function Register() {
+
+	const { user } = useContext(UserContext);
 
 	//state hooks to store the values of the input fields
 	const [ email, setEmail ] = useState('');
@@ -31,7 +35,7 @@ export default function Register() {
 		setVerifyPassword('');
 
 		Swal.fire({
-			title: 'Yaaaaaaaaaaaaay!',
+			title: 'Yaaaaaaaaaaaay!',
 			icon: 'success',
 			text: 'You have successfully registered!'
 		})
@@ -40,17 +44,23 @@ export default function Register() {
 
 	return(
 
+		(user.accessToken !== null) ? 
+
+		<Navigate to="/courses" />
+
+		:
+
 		<Form onSubmit={e => registerUser(e)}>
-			<h1>Register</h1>
+		    <h1>Register</h1>
 			<Form.Group>
 				<Form.Label>Email Address</Form.Label>
 				<Form.Control 
-                 	type="email"
-                 	placeholder="Enter email"
-                 	required
-                 	value={email}
-                 	onChange={e => setEmail(e.target.value)}
-					/>
+				    type="email"
+				    placeholder="Enter email"
+				    required
+				    value={email}
+				    onChange={e => setEmail(e.target.value)}
+				    />
 				<Form.Text className="text-muted">
 					We'll never share your email with anyone else.
 				</Form.Text>
@@ -59,34 +69,32 @@ export default function Register() {
 			<Form.Group>
 				<Form.Label>Password</Form.Label>
 				<Form.Control 
-				 	type="password"
-				 	placeholder="Enter your Password"
-				 	required
-				 	value={password}
-				 	onChange={e => setPassword(e.target.value)}
-					/>
+				    type="password"
+				    placeholder="Enter your Password"
+				    required
+				    value={password}
+				    onChange={e => setPassword(e.target.value)}
+				    />
 			</Form.Group>
 
 			<Form.Group>
 				<Form.Label>Verify Password</Form.Label>
 				<Form.Control 
-				 	type="password"
-				 	placeholder="Enter your Password"
-				 	required
-				 	value={verifyPassword}
-				 	onChange={e => setVerifyPassword(e.target.value)}
-					/>
+				    type="password"
+				    placeholder="Verify Password"
+				    required
+				    value={verifyPassword}
+				    onChange={e => setVerifyPassword(e.target.value)}
+				    />
 			</Form.Group>
 			{isActive ?
 				<Button variant="primary" type="submit" className="mt-3">Submit</Button>
 				:
 				<Button variant="primary" type="submit" className="mt-3" disabled>Submit</Button>
 			}
-
-
+			
+			
 		</Form>
-
-
 
 
 
