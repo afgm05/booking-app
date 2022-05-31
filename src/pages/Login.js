@@ -44,7 +44,7 @@ export default function Login() {
 	function authentication(e) {
 		e.preventDefault();
 
-		fetch('https://seito-booking-app.herokuapp.com/api/users/login', {
+		fetch('https://seito-booking-app.herokuapp.com/users/login', {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({
