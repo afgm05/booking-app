@@ -20,10 +20,11 @@ export default function CoursePage() {
 		})
 	}
 
+	//it renders the function fetchData() => it gets the updated data coming from the fecth
 	useEffect(() => {
 		fetchData()
 	}, [])
-
+	//if the useEffect has no variable, it will only render one time
 	
 	const { user } = useContext(UserContext);
 
