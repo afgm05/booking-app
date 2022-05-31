@@ -8,7 +8,7 @@ export default function Banner(props) {
 		<Row>
 			<Col className="p-5">
 
-				<h1>Hello! {props.name} {props.age} </h1>
+				<h1>Hello!</h1>
 
 				<h1 className="mb-3">Zuitt Coding Bootcamp</h1>
 				<h3 className="mb-3">Batch 176</h3>
